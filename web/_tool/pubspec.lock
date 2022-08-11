@@ -8,13 +8,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.3.0"
-  charcode:
-    dependency: transitive
-    description:
-      name: charcode
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.3.1"
   lints:
     dependency: "direct dev"
     description:
@@ -28,7 +21,7 @@ packages:
       name: markdown
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "6.0.0"
   meta:
     dependency: transitive
     description:
@@ -44,4 +37,4 @@ packages:
     source: hosted
     version: "1.8.1"
 sdks:
-  dart: ">=2.12.0 <3.0.0"
+  dart: ">=2.17.0 <3.0.0"
