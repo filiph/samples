@@ -16,6 +16,7 @@ import '../game_internals/score.dart';
 import '../level_selection/levels.dart';
 import '../player_progress/player_progress.dart';
 import '../style/confetti.dart';
+import '../style/my_button.dart';
 import '../style/palette.dart';
 
 class PlaySessionScreen extends StatefulWidget {
@@ -88,12 +89,9 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
                     const Spacer(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: FilledButton(
-                          onPressed: () => GoRouter.of(context).go('/play'),
-                          child: const Text('Back'),
-                        ),
+                      child: MyButton(
+                        onPressed: () => GoRouter.of(context).go('/play'),
+                        child: const Text('Back'),
                       ),
                     ),
                   ],
