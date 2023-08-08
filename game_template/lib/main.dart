@@ -54,6 +54,16 @@ class MyApp extends StatelessWidget {
                 bodyMedium: TextStyle(color: palette.ink),
               ),
               useMaterial3: true,
+            ).copyWith(
+              // Make buttons more fun.
+              filledButtonTheme: FilledButtonThemeData(
+                style: FilledButton.styleFrom(
+                  textStyle: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
             ),
             routeInformationProvider: router.routeInformationProvider,
             routeInformationParser: router.routeInformationParser,
