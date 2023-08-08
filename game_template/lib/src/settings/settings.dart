@@ -4,12 +4,17 @@
 
 import 'package:flutter/foundation.dart';
 
+import 'persistence/local_storage_settings_persistence.dart';
 import 'persistence/settings_persistence.dart';
 
 /// An class that holds settings like [playerName] or [musicOn],
 /// and saves them to an injected persistence store.
 class SettingsController {
-  final SettingsPersistence _persistence;
+  /// TODO: If needed, replace this with some other mechanism for saving
+  ///       settings. Currently, this uses the local storage
+  ///       (i.e. NSUserDefaults on iOS, SharedPreferences on Android
+  ///       or local storage on the web).
+  final SettingsPersistence _persistence = LocalStorageSettingsPersistence();
 
   /// Whether or not the sound is on at all. This overrides both music
   /// and sound.
@@ -22,8 +27,9 @@ class SettingsController {
   ValueNotifier<bool> musicOn = ValueNotifier(false);
 
   /// Creates a new instance of [SettingsController] backed by [persistence].
-  SettingsController({required SettingsPersistence persistence})
-      : _persistence = persistence;
+  SettingsController() {
+    loadStateFromPersistence();
+  }
 
   /// Asynchronously loads values from the injected persistence store.
   Future<void> loadStateFromPersistence() async {

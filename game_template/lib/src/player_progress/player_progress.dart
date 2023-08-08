@@ -5,6 +5,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:game_template/src/player_progress/persistence/local_storage_player_progress_persistence.dart';
 
 import 'persistence/player_progress_persistence.dart';
 
@@ -12,13 +13,20 @@ import 'persistence/player_progress_persistence.dart';
 class PlayerProgress extends ChangeNotifier {
   static const maxHighestScoresPerPlayer = 10;
 
-  final PlayerProgressPersistence _store;
+  /// TODO: If needed, replace this with some other mechanism for saving
+  ///       the player's progress. Currently, this uses the local storage
+  ///       (i.e. NSUserDefaults on iOS, SharedPreferences on Android
+  ///       or local storage on the web).
+  final PlayerProgressPersistence _store =
+      LocalStoragePlayerProgressPersistence();
 
   int _highestLevelReached = 0;
 
   /// Creates an instance of [PlayerProgress] backed by an injected
   /// persistence [store].
-  PlayerProgress(PlayerProgressPersistence store) : _store = store;
+  PlayerProgress() {
+    getLatestFromStore();
+  }
 
   /// The highest level that the player has reached so far.
   int get highestLevelReached => _highestLevelReached;

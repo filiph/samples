@@ -4,16 +4,11 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_template/main.dart';
-import 'package:game_template/src/player_progress/persistence/memory_player_progress_persistence.dart';
-import 'package:game_template/src/settings/persistence/memory_settings_persistence.dart';
 
 void main() {
   testWidgets('smoke test', (tester) async {
     // Build our game and trigger a frame.
-    await tester.pumpWidget(MyApp(
-      settingsPersistence: MemoryOnlySettingsPersistence(),
-      playerProgressPersistence: MemoryOnlyPlayerProgressPersistence(),
-    ));
+    await tester.pumpWidget(MyApp());
 
     // Verify that the 'Play' button is shown.
     expect(find.text('Play'), findsOneWidget);

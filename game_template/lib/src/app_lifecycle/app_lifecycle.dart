@@ -6,6 +6,8 @@ import 'package:flutter/widgets.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
+typedef AppLifecycleStateNotifier = ValueNotifier<AppLifecycleState>;
+
 class AppLifecycleObserver extends StatefulWidget {
   final Widget child;
 
@@ -36,7 +38,7 @@ class _AppLifecycleObserverState extends State<AppLifecycleObserver>
     // is trying to provide a Listenable (such as ValueNotifier) without using
     // something like ValueListenableProvider. InheritedProvider is more
     // low-level and doesn't have this problem.
-    return InheritedProvider<ValueNotifier<AppLifecycleState>>.value(
+    return InheritedProvider<AppLifecycleStateNotifier>.value(
       value: lifecycleListenable,
       child: widget.child,
     );
