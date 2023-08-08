@@ -9,13 +9,10 @@ import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart' hide Level;
 import 'package:provider/provider.dart';
 
-import '../ads/ads_controller.dart';
 import '../audio/audio_controller.dart';
 import '../audio/sounds.dart';
 import '../game_internals/level_state.dart';
-import '../games_services/games_services.dart';
-import '../games_services/score.dart';
-import '../in_app_purchase/in_app_purchase.dart';
+import '../game_internals/score.dart';
 import '../level_selection/levels.dart';
 import '../player_progress/player_progress.dart';
 import '../style/confetti.dart';
@@ -124,14 +121,6 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
     super.initState();
 
     _startOfPlay = DateTime.now();
-
-    // Preload ad for the win screen.
-    final adsRemoved =
-        context.read<InAppPurchaseController?>()?.adRemoval.active ?? false;
-    if (!adsRemoved) {
-      final adsController = context.read<AdsController?>();
-      adsController?.preloadAd();
-    }
   }
 
   Future<void> _playerWon() async {
@@ -156,20 +145,6 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
 
     final audioController = context.read<AudioController>();
     audioController.playSfx(SfxType.congrats);
-
-    final gamesServicesController = context.read<GamesServicesController?>();
-    if (gamesServicesController != null) {
-      // Award achievement.
-      if (widget.level.awardsAchievement) {
-        await gamesServicesController.awardAchievement(
-          android: widget.level.achievementIdAndroid!,
-          iOS: widget.level.achievementIdIOS!,
-        );
-      }
-
-      // Send score to leaderboard.
-      await gamesServicesController.submitLeaderboardScore(score);
-    }
 
     /// Give the player some time to see the celebration animation.
     await Future<void>.delayed(_celebrationDuration);
